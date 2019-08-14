@@ -39,6 +39,10 @@ public class MannusSeason implements Serializable { //istances of this class cou
     private void setWeekList(Week[] list) {
         weekList = list;
     }
+    
+    public String getYear() {
+        return Integer.toString(year);
+    }
 
     //Methods------------------------------------------------------------------------------------------------------------------------
     private boolean empty() {return nWeeks == 0;}

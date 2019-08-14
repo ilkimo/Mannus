@@ -33,10 +33,6 @@ public class Main {
         AppCore app = null;
         try {
             app = new AppCore(get_actual_date());
-            //cancel me
-            NewJFrame f = new NewJFrame();
-            f.setVisible(true);
-            //cancel me
         } catch(Error e) {
             JFrame f = new JFrame("Errore");
             f.setSize(500, 200);

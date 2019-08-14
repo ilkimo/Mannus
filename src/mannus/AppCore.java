@@ -3,6 +3,7 @@ package mannus;
 import mannus.gui.MannusFrame;
 import javax.swing.JFrame;
 import java.io.File;
+import mannus.newGui.NewJFrame;
 
 /**
  * @author Kim Viberti <vibertikim@yahoo.it>
@@ -16,7 +17,7 @@ public class AppCore {
     public String year, month, day; //month indexed [1-12] (like above)
     private String binary_path_name; //C:\Users\Kimjie\AppData\Roaming\Mannus Manager\bin
     private MannusSeason[] seasons_list;
-    private int nSeasons;
+    private int nSeasons; //reflects the number of seasons in season_list
     private JFrame mainFrame;
     //--------------------------------------------
     public AppCore(String date) throws Error {
@@ -38,9 +39,12 @@ public class AppCore {
             nSeasons = 1;
         }
         // Mostrare la finestra dell'applicazione
+        NewJFrame f = new NewJFrame(this);
+        f.setVisible(true);
+        /*
         mainFrame = new MannusFrame(this);
         mainFrame.paint(mainFrame.getGraphics());
-        mainFrame.setVisible(true);
+        mainFrame.setVisible(true);*/
     }
     //Utility-------------------------------------
     public void add(MannusSeason s) {
@@ -56,6 +60,16 @@ public class AppCore {
             seasons_list[nSeasons] = s;
         }
         ++nSeasons;
+    }
+    
+    public String[] getYears() {
+        String[] str = new String[nSeasons];
+        
+        for(int i = 0; i < nSeasons; ++i) {
+            seasons_list[i].getYear();
+        }
+        
+        return str;
     }
     //--------------------------------------------
 }
