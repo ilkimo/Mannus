@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import mannus.exceptions.MannusSeasonException;
 import java.util.Calendar;

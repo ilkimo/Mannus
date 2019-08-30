@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import mannus.exceptions.AgeException;
 import mannus.exceptions.NameException;
@@ -24,8 +24,8 @@ public class Kid implements Serializable, Comparable<Kid> {
         if(age < 0)               {throw new AgeException("L'eta' dell'animato non puo' essere negativa");}
         if(name.length() == 0)    {throw new NameException("Errore, nome non inserito");}
         if(surname.length() == 0) {throw new SurnameException("Errore, cognome non inserito");}
-        if(!validName(name))      {throw new NameException("Errore, il nome puo' contenere solo lettere e spazi \ne deve essere di lunghezza compresa fra 1 e 20");}
-        if(!validName(surname))   {throw new SurnameException("Errore, il cognome puo' contenere solo lettere e spazi \ne deve essere di lunghezza compresa fra 1 e 20");}
+        if(!validName(name))      {throw new NameException("Errore, il nome puo' contenere solo lettere (non accentate), spazi e apostrofi \ne deve essere di lunghezza compresa fra 1 e 30");}
+        if(!validName(surname))   {throw new SurnameException("Errore, il cognome puo' contenere solo lettere (non accentate), spazi e apostrofi \ne deve essere di lunghezza compresa fra 1 e 30");}
 
         this.name = name;
         this.surname = surname;
@@ -36,8 +36,8 @@ public class Kid implements Serializable, Comparable<Kid> {
     public Kid(String name, String surname) throws NameException, SurnameException {
         if(name.length() == 0)    {throw new NameException("Errore, nome non inserito");}
         if(surname.length() == 0) {throw new SurnameException("Errore, cognome non inserito");}
-        if(!validName(name))      {throw new NameException("Errore, il nome puo' contenere solo lettere e spazi \ne deve essere di lunghezza compresa fra 1 e 20");}
-        if(!validName(surname))   {throw new SurnameException("Errore, il cognome puo' contenere solo lettere e spazi \ne deve essere di lunghezza compresa fra 1 e 20");}
+        if(!validName(name))      {throw new NameException("Errore, il nome puo' contenere solo lettere (non accentate), spazi e apostrofi \ne deve essere di lunghezza compresa fra 1 e 30");}
+        if(!validName(surname))   {throw new SurnameException("Errore, il cognome puo' contenere solo lettere (non accentate), spazi e apostrofi \ne deve essere di lunghezza compresa fra 1 e 30");}
 
         this.name = name;
         this.surname = surname;
@@ -62,8 +62,8 @@ public class Kid implements Serializable, Comparable<Kid> {
      private static boolean validName(String str) {
          boolean res = true;
 
-         if(str.length() > 0 && str.length() < 21) {
-             Pattern p = Pattern.compile("[^a-zA-Z ]");
+         if(str.length() > 0 && str.length() < 31) {
+             Pattern p = Pattern.compile("[^a-zA-Z ']");
              Matcher m;
 
              m = p.matcher(str);

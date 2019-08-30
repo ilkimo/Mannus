@@ -7,8 +7,8 @@ import java.awt.Rectangle;
 import java.awt.Component.*;
 import java.awt.event.*;
 import javax.swing.JOptionPane;
-import mannus.AppCore;
-import mannus.MyEditor;
+import mannus.core.AppCore;
+import mannus.core.MyEditor;
 
 public class MannusFrame extends JFrame implements WindowListener {
 

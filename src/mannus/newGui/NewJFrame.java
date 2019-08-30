@@ -2,7 +2,8 @@ package mannus.newGui;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import mannus.AppCore;
+import mannus.core.AppCore;
+import mannus.core.MyCalendar;
 
 /**
  *
@@ -21,7 +22,9 @@ public class NewJFrame extends javax.swing.JFrame {
     }
     //--------------------------------------------------------------------------------------------------------------------------------
     public void initializeWithData() {
-        addYearsToBox(app.getSeasonsWithData());
+        addYearsToBox(app.getSeasonsWithData()); //current year needs to be selected
+        //2) addWeeksToBox(): adds all weeks with data (from the selected year) to the box, current week need to be selected and displayed
+        updateBoxWeeks(MyCalendar.getWeeksOfOperatingYear(getSelectedYear(years_box))); //DA QUIIIIIIIIIIIIIIIIIIIIIIIIII
     }
     
     public void addYearsToBox(String[] str) {
@@ -49,6 +52,23 @@ public class NewJFrame extends javax.swing.JFrame {
         return !found;
     }
     //--------------------------------------------------------------------------------------------------------------------------------
+    public void updateBoxWeeks(String[] weeks) {
+        // TODO remove all items from the box, add new items
+        weeks_box.removeAllItems​();
+        fillBox(weeks_box, weeks); // TODO
+        // TODO display on editor the week selected
+    }
+    
+    private void fillBox(JComboBox<String> box, String[] itemsToAdd) {
+        for(int i = 0; itemsToAdd != null && i < itemsToAdd.length; ++i) {
+            box.addItem(itemsToAdd[i]);
+        }
+    }
+    
+    public String getSelectedYear(JComboBox<String> box) {
+        return box.getItemAt(box.getSelectedIndex​());
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -61,9 +81,9 @@ public class NewJFrame extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         years_box = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        weeks_box = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabGruppi = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -88,9 +108,9 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel1.setMaximumSize(null);
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 30));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setMaximumSize(null);
-        jComboBox2.setMinimumSize(new java.awt.Dimension(100, 30));
+        weeks_box.setMaximumRowCount(30);
+        weeks_box.setMaximumSize(null);
+        weeks_box.setMinimumSize(new java.awt.Dimension(100, 30));
 
         jLabel2.setText("Settimana");
         jLabel2.setMinimumSize(new java.awt.Dimension(100, 30));
@@ -106,7 +126,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGap(0, 467, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        tabGruppi.addTab("Iscritti", jPanel1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -119,7 +139,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGap(0, 467, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        tabGruppi.addTab("Attivita'", jPanel2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -132,7 +152,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGap(0, 467, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab3", jPanel3);
+        tabGruppi.addTab("Gruppi", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,7 +161,7 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane1)
+                    .addComponent(tabGruppi)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -149,7 +169,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(weeks_box, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -160,14 +180,16 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(weeks_box, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(years_box, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26)
-                .addComponent(jTabbedPane1))
+                .addComponent(tabGruppi))
         );
+
+        tabGruppi.getAccessibleContext().setAccessibleName("Gruppi");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -194,14 +216,14 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTabbedPane tabGruppi;
+    private javax.swing.JComboBox<String> weeks_box;
     private javax.swing.JComboBox<String> years_box;
     // End of variables declaration//GEN-END:variables
 }

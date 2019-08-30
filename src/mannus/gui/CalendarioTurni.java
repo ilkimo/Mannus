@@ -6,8 +6,8 @@
 package mannus.gui;
 
 import java.awt.Graphics;
-import mannus.AppCore;
-import mannus.MyEditor;
+import mannus.core.AppCore;
+import mannus.core.MyEditor;
 
 /**
  *

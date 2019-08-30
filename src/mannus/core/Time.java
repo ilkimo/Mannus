@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import mannus.exceptions.TimeException;
 import java.io.Serializable;

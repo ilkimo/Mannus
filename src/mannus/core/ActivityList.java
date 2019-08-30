@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import java.io.Serializable;
 import java.util.Scanner; //only for test class

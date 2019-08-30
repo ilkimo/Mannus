@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import mannus.exceptions.ListException;
 import mannus.exceptions.AddException;
@@ -10,7 +10,7 @@ import java.util.Scanner; //only for test class
  * @version 0.0.1
  * @since 0.0.1
  * Class invariants:
- *  1) length tells how many Kids there are in the List, last Kid at list[length - 1]
+ *  1) length tells how many Kids there are in the collection, last Kid at list[length - 1]
  *  2) The list is in alfanumeric order
  */
 public class Children implements Serializable {
@@ -55,6 +55,29 @@ public class Children implements Serializable {
         }
     }
     //List manipulation----------------------------------------------------------------------------------------------------------
+    public void add(Kid x) throws AddException {
+        if(x != null) {
+            if(empty()) {
+                list[0] = x;
+                ++length;
+            } else {
+                if(full()) {
+                    Kid[] tmp = list;
+                    list = new Kid[list.length * 2];
+
+                    for(int i = 0; i < tmp.length; ++i) {
+                        list[i] = tmp[i];
+                    }
+                }
+
+                try{
+                    insert(x);
+                    ++length;
+                } catch(AddException e) {throw e;}
+            }
+        }
+    }
+    
     private void insert(Kid x) throws AddException {
         int index = findInsertIndex(x, 0, length - 1);
 
@@ -65,7 +88,7 @@ public class Children implements Serializable {
                 throw new AddException("Error " + x.toString() + "is already in the list: " + this.toString());
             }
 
-            Kid tmp = list[index], tmp2 = null;
+            Kid tmp = list[index], tmp2;
             list[index] = x;
             if(length > index + 1) {
                 for(int i = index + 1; i < length; ++i) {
@@ -98,30 +121,6 @@ public class Children implements Serializable {
             }
         }
     }
-
-    public void add(Kid x) throws AddException {
-        if(x != null) {
-            if(empty()) {
-                list[0] = x;
-                ++length;
-            } else {
-                if(full()) {
-                    Kid[] tmp = list;
-                    list = new Kid[list.length * 2];
-
-                    for(int i = 0; i < tmp.length; ++i) {
-                        list[i] = tmp[i];
-                    }
-                }
-
-                try{
-                    insert(x);
-                    ++length;
-                } catch(AddException e) {throw e;}
-            }
-        }
-    }
-
     /**
      * Applies binary search to kid[] list, retuns -1 if Kid x is not found, else returns its index location inside the array
      */

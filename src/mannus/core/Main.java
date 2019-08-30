@@ -1,11 +1,13 @@
-package mannus;
+package mannus.core;
 
 import javax.swing.JFrame;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import javax.swing.JLabel; //remove me
 import java.util.Scanner;
 import mannus.newGui.NewJFrame;
+import mannus.tests.Tests;
 
 /**
  * @author Kim Viberti <vibertikim@yahoo.it>
@@ -26,10 +28,35 @@ public class Main {
         String res = dtf.format(localDate);
     	return res;
     }
+    
+    public static void test1() {
+        MyCalendar cal = null;
+        
+        try {
+            cal = MyCalendar.getCalendar("2020/01/1");
+        } catch(Exception e) {System.out.println(e.getMessage());}
+        
+        System.out.println("Prossimi 10 lunedi':");
+        
+        for(int i = 0; i < 10; ++i) {
+            cal.goToFirstMonday();
+            System.out.println(cal.toString());
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+        }
+    }
+    
+    public static void test2() {
+        Children c = Tests.generateChildrenWithAge();
+        System.out.println(c.toString());
+    }
     /**
      * Starts the application by creating an instance of AppCore
      */
     public static void main(String[] args) {
+        test2();
+        System.out.print("END OF TEST");
+        pause();
+        //cancel everything before me
         AppCore app = null;
         try {
             app = new AppCore(get_actual_date());

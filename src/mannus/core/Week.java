@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import mannus.exceptions.AddException;
 import mannus.exceptions.TimeException;

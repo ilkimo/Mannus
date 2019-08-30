@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import java.util.Scanner;
 /**

@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import javax.swing.JComponent;
 import java.awt.Graphics;

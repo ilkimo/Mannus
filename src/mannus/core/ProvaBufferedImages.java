@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;

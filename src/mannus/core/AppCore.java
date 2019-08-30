@@ -1,4 +1,4 @@
-package mannus;
+package mannus.core;
 
 import mannus.gui.MannusFrame;
 import javax.swing.JFrame;
@@ -55,6 +55,8 @@ public class AppCore {
     }
     //set() & get()--------------------------------------------------------------------------------------------------------------
     public String[] getSeasonsWithData() {return seasonsWithData;}
+    //Methods()------------------------------------------------------------------------------------------------------------------
+    
     //Utility--------------------------------------------------------------------------------------------------------------------
     public void add(MannusSeason s) {
         if(nSeasons >= seasons_list.length) {
